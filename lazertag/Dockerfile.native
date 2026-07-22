@@ -1,0 +1,9 @@
+FROM debian:trixie-slim
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY build/native/nativeCompile/lazertag /app/lazertag
+COPY run/maps /app/maps
+
+ENTRYPOINT ["/app/lazertag"]
