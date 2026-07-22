@@ -1,0 +1,8 @@
+FROM debian:trixie-slim
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY build/native/nativeCompile/minesweeper /app/minesweeper
+
+ENTRYPOINT ["/app/minesweeper"]
