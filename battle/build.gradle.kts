@@ -1,6 +1,7 @@
 plugins {
     java
     id("com.gradleup.shadow") version "9.5.1"
+    id("org.graalvm.buildtools.native")
 }
 
 group = "dev.emortal.minestom.battle"
@@ -20,7 +21,14 @@ dependencies {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(26))
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
+graalvmNative {
+    binaries.named("main") {
+        imageName.set("battle")
+        mainClass.set("dev.emortal.minestom.battle.Main")
     }
 }
 

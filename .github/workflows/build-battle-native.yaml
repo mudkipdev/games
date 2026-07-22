@@ -1,0 +1,34 @@
+name: "Build Battle (native)"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'messaging/**'
+      - 'core/**'
+      - '.github/workflows/build-battle-native.yaml'
+      - 'battle/**'
+      - 'build.gradle.kts'
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v4"
+
+      - uses: "graalvm/setup-graalvm@v1"
+        with:
+          java-version: "25"
+          distribution: "graalvm-community"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          cache: "gradle"
+          native-image-job-reports: "true"
+
+      - uses: "emortalmc/actions/java/build@main"
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          project: "battle-native"
+          gradle-command: "./gradlew battle:nativeCompile --no-daemon"
+          dockerfile-path: './battle/Dockerfile.native'
+          dockerfile-context: './battle/'
