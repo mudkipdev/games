@@ -1,0 +1,9 @@
+FROM debian:trixie-slim
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY build/native/nativeCompile/parkourtag /app/parkourtag
+COPY run/maps /app/maps
+
+ENTRYPOINT ["/app/parkourtag"]
