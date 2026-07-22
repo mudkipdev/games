@@ -1,0 +1,10 @@
+FROM debian:trixie-slim
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY build/native/nativeCompile/lobby /app/lobby
+COPY run/*.polar /app/
+COPY run/*.bbmodel /app/
+
+ENTRYPOINT ["/app/lobby"]

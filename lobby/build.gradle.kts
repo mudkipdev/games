@@ -1,6 +1,7 @@
 plugins {
     java
     id("com.gradleup.shadow") version "9.5.1"
+    id("org.graalvm.buildtools.native")
 }
 
 group = "dev.emortal.minestom"
@@ -15,10 +16,17 @@ dependencies {
 
     implementation("com.alibaba.fastjson2:fastjson2:2.0.61")
     implementation("dev.emortal:bbstom:local")
-    implementation("org.joml:joml:1.10.9")
+    implementation("org.joml:joml:1.10.8")
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(26))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(25))
+
+graalvmNative {
+    binaries.named("main") {
+        imageName.set("lobby")
+        mainClass.set("dev.emortal.minestom.lobby.Entrypoint")
+    }
+}
 
 tasks {
     shadowJar {
